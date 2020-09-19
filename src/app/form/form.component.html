@@ -1,0 +1,100 @@
+<div class="row m-4">
+    <div class="col-md-6 offset-md-3">
+        <div class="card m-4">
+            <h5 class="card-header"><b style="color: rgb(112,7,7)">Visitor Log</b></h5>
+            <div class="card-body">
+                <form [formGroup]="rigisterForm" (ngSubmit)="onSubmit(this.rigisterForm.value)">
+
+                    <div class="form-group">
+                        <label>Name:</label>
+                        <input type="text" formControlName="name" class="form-control">
+                        <div class="text-danger" *ngIf="rigisterForm.get('name').hasError('required') && rigisterForm.get('name').touched">
+                            Name is Required
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                            <label>Selfie of the Person:</label>
+                            <div class="">
+                                <div style="margin-left: 30px;">
+                                    <webcam [height]="400" [width]="400" [trigger]="triggerObservable" 
+                                        (imageCapture)="handleImage($event)" *ngIf="showWebcam"
+                                        [allowCameraSwitch]="allowCameraSwitch" (imageCapture)="handleImage($event)">
+                                    </webcam>
+                                    <br/>
+                                    <div *ngIf="imageCaptureText">
+                                        <p style="color: green;">Image Successfully Captured</p>
+                                        <img [src]="Capturedimage" height="100px" width="100px">
+                                    </div>
+                                    <br/>
+                                    <div>
+                                        <button type="button" class="btn btn-primary" (click)="triggerSnapshot();" title="Take Picture">Take Selfie</button>
+                                    </div>
+                                </div>
+                            </div>
+                   
+                  </div>
+
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input type="text" formControlName="email" class="form-control">
+                        <div class="text-danger" *ngIf="rigisterForm.get('email').hasError('required') && rigisterForm.get('email').touched">
+                                Emial is Required
+                            </div>
+                            <div class="text-danger" *ngIf="rigisterForm.get('email').hasError('pattern')">
+                                    Please enter correct emial'id
+                                </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                         Choose Type of visit:<select formControlName="type_of_visit" class="form-control">
+                            <option value="meeting">Meeting</option>
+                            <option value="Delivery">Delivery</option>
+                            <option value="Personal">Personal</option>
+                          </select>
+                          <div class="text-danger" *ngIf="rigisterForm.get('type_of_visit').hasError('required') && rigisterForm.get('type_of_visit').touched">
+                                Type_of_visit is Required
+                            </div>
+                        </label>
+                      </div>
+
+                    <div class="form-group">
+                        <label>Person to Visit</label>
+                        <input type="text" formControlName="person_to_visit" class="form-control">
+                        <div class="text-danger" *ngIf="rigisterForm.get('person_to_visit').hasError('required') && rigisterForm.get('person_to_visit').touched">
+                                person_to_visit is Required
+                            </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Date of Entry</label>
+                        <input type="text" formControlName="date_of_entry" class="form-control" value="date1" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Time of Entry</label>
+                        <input type="time" formControlName="time_of_entry" class="form-control" >
+                        <div class="text-danger" *ngIf="rigisterForm.get('time_of_entry').hasError('required') && rigisterForm.get('time_of_entry').touched">
+                                Time_of_entry is Required
+                            </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Time of exit</label>
+                        <input type="time" formControlName="time_of_exit" class="form-control">
+                        <div class="text-danger" *ngIf="rigisterForm.get('time_of_exit').hasError('required') && rigisterForm.get('time_of_exit').touched">
+                                Time_of_exit is Required
+                            </div>
+                     </div>
+
+                     <div class="text-center">
+                         <button type="submit" class="btn btn-success mr-1" [disabled]="rigisterForm.invalid" >Submit</button>
+                     </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+   
+</div>
